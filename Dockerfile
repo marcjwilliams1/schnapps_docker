@@ -6,7 +6,6 @@ RUN Rscript -e "install.packages(pkgs = c('tidyverse', \
                                           'cowplot', \
                                           'rmarkdown', \
                                           'uwot', \
-                                          'argparse', \
                                           'BiocManager'), \
                                         repos='https://cran.revolutionanalytics.com/', \
                                         dependencies=TRUE, \
