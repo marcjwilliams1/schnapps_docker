@@ -11,8 +11,15 @@ RUN Rscript -e "install.packages(pkgs = c('tidyverse', \
                                         dependencies=TRUE, \
                                         clean = TRUE)"
 
+RUN apt-get update && apt-get -y upgrade && \
+	apt-get install -y build-essential wget \
+		libncurses5-dev zlib1g-dev libbz2-dev liblzma-dev libcurl3-dev libcairo2-dev && \
+	apt-get clean && apt-get purge && \
+	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 RUN Rscript -e "install.packages('argparse')"
 RUN Rscript -e "install.packages('R.utils')"
+RUN Rscript -e "install.packages('magick')"
 
 RUN Rscript -e "BiocManager::install('ggtree')"
 RUN Rscript -e "BiocManager::install('ComplexHeatmap')"
@@ -25,12 +32,6 @@ RUN Rscript -e "library(devtools); install_github('caravagnalab/mobster')"
 RUN Rscript -e "library(devtools); install_github('caravagnalab/VIBER')"
 RUN Rscript -e "library(devtools); install_github('VPetukhov/ggrastr')"
 RUN Rscript -e "library(devtools); install_github('shahcompbio/schnapps')"
-
-RUN apt-get update && apt-get -y upgrade && \
-	apt-get install -y build-essential wget \
-		libncurses5-dev zlib1g-dev libbz2-dev liblzma-dev libcurl3-dev && \
-	apt-get clean && apt-get purge && \
-	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 WORKDIR /usr/src
 
